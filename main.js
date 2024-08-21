@@ -42,20 +42,42 @@ const material = new THREE.MeshBasicMaterial({
   color: "purple", // задали цвет фигуре
   wireframe: true, // вместо всей заливки указать линии чертежа
 });
-const mesh = new THREE.Mesh(geometry, material); // объединили фигуру и цвет
+// const mesh = new THREE.Mesh(geometry, material); // объединили фигуру и цвет
 
 // position: x, y, z — перемещение как на оси координат
 // если 0 в центре, то + это вправо, а - это влево
 // добавления x y или z обязательно, без него не работает
 
-mesh.position.x = -0.5;
-mesh.position.y = 1;
-mesh.position.z = -1;
-mesh.scale.x = 2;
-mesh.scale.y = 3;
-mesh.scale.z = 3;
+// mesh.position.x = -0.5;
+// mesh.position.y = 1;
+// mesh.position.z = -1;
+// mesh.scale.x = 1.1;
+// mesh.scale.y = 1.5;
+// mesh.scale.z = 1.1;
 
-scene.add(mesh); // добавили на сцену
+// mesh.rotation.x = Math.PI * -0.25;
+// mesh.rotation.y = Math.PI * 0.25;
+// mesh.rotation.z = Math.PI * 0.5;
+
+// mesh.rotation.reorder("YXZ");
+
+// scene.add(mesh); // добавили на сцену
+
+
+const group = new THREE.Group();
+group.scale.y = 1.4;
+group.rotation.x = Math.PI * 0.25;
+
+
+const cube1 = new THREE.Mesh(geometry, material);
+cube1.position.x = -1.1;
+const cube2 = new THREE.Mesh(geometry, material);
+cube2.position.x = 0;
+const cube3 = new THREE.Mesh(geometry, material);
+cube3.position.x = 1.1;
+
+group.add(cube1, cube2, cube3);
+scene.add(group);
 
 // Камера
 const sizes = {
@@ -63,9 +85,11 @@ const sizes = {
   height: 600,
 };
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
-camera.position.z = 3; // добавили, чтобы отодвинуть камеру от объекта
+camera.position.z = 5; // добавили, чтобы отодвинуть камеру от объекта
 camera.position.y = 1;
 scene.add(camera);
+
+// camera.lookAt(new THREE.Vector3(0, -1, 0));
 
 // Отрисовщик
 const canvas = document.querySelector(".canvas");
